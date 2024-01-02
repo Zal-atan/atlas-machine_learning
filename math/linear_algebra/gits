@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+read -p "Enter commit message: " message
+git add .
+git update-index --chmod=+x *.py
+git commit -m "$message"
+git push
