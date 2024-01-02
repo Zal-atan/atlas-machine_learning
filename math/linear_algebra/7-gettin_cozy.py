@@ -2,6 +2,7 @@
 """This module creates the cat_matrices2D function, which combines two
 2-dimensional matrices based on the given axis."""
 
+
 def cat_matrices2D(mat1, mat2, axis=0):
     """Takes two matrices as inputs (mat1, mat2) and combines them on the
     optional axis given. Axis is set to 0 by default. Axis = 0 adds the matrix
@@ -27,5 +28,5 @@ def cat_matrices2D(mat1, mat2, axis=0):
                 # print(new_array, new_matrix)
         return new_matrix
 
-    except:
+    except Exception:
         return None

@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """ This modules creates an add_arrays function"""
 
+
 def add_arrays(arr1, arr2):
     """Add two arrays element-wise, returns None if arrays are not the same
     shape. Takes two arrays as arguments"""
