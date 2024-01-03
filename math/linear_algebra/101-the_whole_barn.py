@@ -35,16 +35,17 @@ def add_matrices(mat1, mat2):
                         third_tier = []
                         try:
                             for l in range(shape1[3]):
-                                third_tier.append(mat1[i][j][k][l] + mat2[i][j][k][l])
-                        except:
+                                third_tier.append(mat1[i][j][k][l] +
+                                                  mat2[i][j][k][l])
+                        except Exception:
                             second_tier.append(mat1[i][j][k] + mat2[i][j][k])
                         else:
                             second_tier.append(third_tier)
-                except:
+                except Exception:
                     first_tier.append(mat1[i][j] + mat2[i][j])
                 else:
                     first_tier.append(second_tier)
-        except:
+        except Exception:
             new_matrix.append(mat1[i] + mat2[i])
         else:
             new_matrix.append(first_tier)
