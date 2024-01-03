@@ -19,11 +19,11 @@ def cat_matrices2D(mat1, mat2, axis=0):
                 new_matrix.append(matrix.copy())
         elif axis == 1:
             if len(mat2) > len(mat1):
-                print("Went here {}".format(mat2))
                 return None
             for i in range(len(mat1)):
                 new_array = mat1[i].copy()
-                new_array.append(mat2[i][0])
+                for j in range(len(mat2[i])):
+                    new_array.append(mat2[i][j])
                 new_matrix.append(new_array)
                 # print(new_array, new_matrix)
         return new_matrix
