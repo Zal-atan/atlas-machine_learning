@@ -7,7 +7,7 @@ student_grades = np.random.normal(68, 15, 50)
 
 # your code here
 plt.hist(student_grades,
-         bins=5,
+         bins=6,
          color="dodgerblue",
          edgecolor="black",
          range=(40,100))
