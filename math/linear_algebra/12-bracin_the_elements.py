@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """Creates a function which returns add, subtract, multiplu, and divide
 of two matrices, all inside a tuple"""
-import numpy as np
 
 
 def np_elementwise(mat1, mat2):
