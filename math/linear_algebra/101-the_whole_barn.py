@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 """This module adds two matrices"""
-import pdb
 
 
 def matrix_shape(matrix):
