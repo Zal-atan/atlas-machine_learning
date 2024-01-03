@@ -13,7 +13,7 @@ def cat_matrices2D(mat1, mat2, axis=0):
     try:
         new_matrix = []
         if axis == 0:
-            if len(mat2[0]) != len(mat1) or len(mat2[0]) != len(mat1[0]):
+            if len(mat2[0]) != len(mat1[0]):
                 return None
             for matrix in mat1:
                 new_matrix.append(matrix.copy())
