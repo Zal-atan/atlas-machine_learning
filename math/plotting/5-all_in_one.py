@@ -69,7 +69,7 @@ ax5.set_ylim(0, 30)
 ax5.set_title("Project A", fontsize="x-small")
 ax5.set_xlabel("Grades", fontsize="x-small")
 ax5.set_ylabel("Number of Students", fontsize="x-small")
-ax5.xaxis.set_ticks(np.arange(0, 101, 10))
+ax5.set_xticks(np.arange(0, 101, 10))
 
 plt.tight_layout()
 plt.show()
