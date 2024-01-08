@@ -8,9 +8,12 @@ def poly_derivative(poly):
     Example: x^3 + 3x +5 would be input as [5, 3, 0, 1]
     Output would be: [3, 0, 3]"""
 
-    if isinstance(poly, list):
+    if isinstance(poly, list) and len(poly) > 0:
         if len(poly) == 1:
             return [0]
+        for value in poly:
+            if not isinstance(value, int):
+                return None
         return_list = []
         for i in range(1, len(poly)):
             return_list.append(i * poly[i])
