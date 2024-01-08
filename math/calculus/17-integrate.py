@@ -4,6 +4,7 @@ the integrated polynomials"""
 
 
 def format_number(n):
+    """Formats the number to be an integer if possible, else a float"""
     if n == int(n):
         return int(n)
     else:
@@ -17,10 +18,10 @@ def poly_integral(poly, C=0):
     Return: [0, 5, 1.5, 0, 0.25]
     C is an integer representing the integration constant"""
 
-    if isinstance(poly, list) and len(poly) > 0:
+    if isinstance(poly, list) and len(poly) > 0 and isinstance(C, int):
         return_list = [C]
         if len(poly) == 1:
-            return_list
+            return return_list
         for i in range(0, len(poly)):
             return_list.append(format_number(poly[i] / (i + 1)))
         return return_list
