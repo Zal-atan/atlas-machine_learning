@@ -23,7 +23,7 @@ python3 2-main.py
 <br>
 
 # Tasks
-### There are 15 taks in this project with 3 Bonus Tasks
+### There are 15 tasks in this project with 3 Bonus Tasks
 
 ## Task 0
 * Complete the following source code (found below):
@@ -33,9 +33,6 @@ python3 2-main.py
     * arr3 should be the 2nd through 6th numbers of arr
     * You are not allowed to use any loops or conditional statements
     * Your program should be exactly 8 lines
-
-## Task 0
-* Complete the following source code (found below):
 
 ## Task 1
 * Complete the following source code (found below):
