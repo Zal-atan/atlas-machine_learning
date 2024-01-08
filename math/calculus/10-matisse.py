@@ -15,6 +15,8 @@ def poly_derivative(poly):
         for i in range(1, len(poly)):
             return_list.append(i * poly[i])
 
+        return return_list
+
     else:
         return None
 
