@@ -19,8 +19,10 @@ def poly_integral(poly, C=0):
 
     if isinstance(poly, list) and len(poly) > 0:
         return_list = [C]
+        if len(poly) == 1:
+            return_list
         for i in range(0, len(poly)):
-            return_list.append(format_number(poly[i]/ (i + 1)))
+            return_list.append(format_number(poly[i] / (i + 1)))
         return return_list
 
     else:
