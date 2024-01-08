@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-""" Creating a functions which calculates sum of the total of the square of
+"""Creating a functions which calculates sum of the total of the square of
 1 to n"""
 
-@__cached__
+
 def summation_i_squared(n):
     """Takes the squares of all values of from 1 to n and returns a sum of
        each"""
