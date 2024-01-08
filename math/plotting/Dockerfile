@@ -8,4 +8,4 @@ RUN pip install -r requirements.txt
 
 RUN pip install -U ipykernel
 
-CMD ["bash"]
+CMD ["/bin/bash"]
