@@ -2,6 +2,14 @@
 """ Creates function poly_integral(poly, C=0):, which returns a list of
 the integrated polynomials"""
 
+
+def format_number(n):
+    if n == int(n):
+        return int(n)
+    else:
+        return n
+
+
 def poly_integral(poly, C=0):
     """ Takes an input list of polynomials, and calculates an output list
     of integrated polynomials.
@@ -12,7 +20,7 @@ def poly_integral(poly, C=0):
     if isinstance(poly, list) and len(poly) > 0:
         return_list = [C]
         for i in range(0, len(poly)):
-            return_list.append(poly[i]/ (i + 1))
+            return_list.append(format_number(poly[i]/ (i + 1)))
         return return_list
 
     else:
