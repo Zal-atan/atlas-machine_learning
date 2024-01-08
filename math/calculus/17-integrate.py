@@ -20,7 +20,7 @@ def poly_integral(poly, C=0):
 
     if isinstance(poly, list) and len(poly) > 0 and isinstance(C, int):
         return_list = [C]
-        if len(poly) == 1:
+        if len(poly) == 1 and poly[0] == 0:
             return return_list
         for i in range(0, len(poly)):
             return_list.append(format_number(poly[i] / (i + 1)))
