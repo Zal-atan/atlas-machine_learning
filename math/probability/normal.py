@@ -40,3 +40,17 @@ class Normal():
         """Calculates the value of the PDF for a given x-value"""
         return ((1 / (self.stddev * ((2 * pi) ** .5))) *
                 (e ** (-1 / 2 * ((self.z_score(x)) ** 2))))
+
+    def cdf(self, x):
+        """Calculates the value of the CDF for a given x-value"""
+
+        # Calculating part inside error function
+        inside = (x - self.mean) / (self.stddev * (2 ** .5))
+
+        # Calculating error function basically using Taylor Series expansion
+        error_func = (2 / (pi ** .5)) * (inside - ((inside **3) / 3) +
+                                         ((inside ** 5) / 10) -
+                                         ((inside ** 7) / 42) +
+                                         ((inside ** 9) / 216))
+
+        return (1 + error_func) / 2
