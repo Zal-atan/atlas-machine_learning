@@ -48,7 +48,7 @@ class Normal():
         inside = (x - self.mean) / (self.stddev * (2 ** .5))
 
         # Calculating error function basically using Taylor Series expansion
-        error_func = (2 / (pi ** .5)) * (inside - ((inside **3) / 3) +
+        error_func = (2 / (pi ** .5)) * (inside - ((inside ** 3) / 3) +
                                          ((inside ** 5) / 10) -
                                          ((inside ** 7) / 42) +
                                          ((inside ** 9) / 216))
