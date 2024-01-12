@@ -4,7 +4,7 @@ e = 2.7182818285
 
 
 class Poisson():
-    """Creates Poisson class"""
+    """Creates Poisson class representing a Poisson distribution"""
 
     def __init__(self, data=None, lambtha=1.):
         """Initializes Poisson class with data (list) values and a lambtha"""
