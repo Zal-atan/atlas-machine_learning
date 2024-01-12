@@ -30,3 +30,22 @@ class Binomial():
             raise ValueError("n must be a positive value")
         if not 0 < p < 1:
             raise ValueError("p must be greater than 0 and less than 1")
+
+    def factorial(self, n):
+        """Returns the factorial of an input number"""
+        if n < 2:
+            return 1
+        else:
+            return n * self.factorial(n-1)
+
+    def pmf(self, k):
+        """Calculates the value of the PMD for a given number of 'successes'"""
+        if not isinstance(k, int):
+            k = int(k)
+        if k < 0:
+            return 0
+
+        n_choose_k = (self.factorial(self.n)) / (self.factorial(k) *
+                                                 self.factorial(self.n - k))
+
+        return n_choose_k * (self.p ** k) * ((1 - self.p) ** (self.n - k))
