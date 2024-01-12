@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Module for creating Exponential class"""
+e = 2.7182818285
 
 
 class Exponential():
@@ -20,3 +21,7 @@ class Exponential():
             if len(data) < 2:
                 raise ValueError("data must contain multiple values")
             self.lambtha = 1 / (sum(data) / len(data))
+
+    def pdf(self, x):
+        """Calculates the value of the PDF for a given time period"""
+        return (self.lambtha * (e ** (-self.lambtha * x)))
