@@ -21,6 +21,7 @@ class Poisson():
             self.lambtha = sum(data) / len(data)
 
     def factorial(self, n):
+        """Returns the factorial of an input number"""
         if n < 2:
             return 1
         else:
@@ -30,7 +31,9 @@ class Poisson():
         """Calculates the value of the PMF for a given number of "successes"""
         if not isinstance(k, int):
             k = int(k)
-        e =  2.718281828459045
+        if k < 0:
+            return 0
+        e = 2.7182818285
         pmf = (((e ** (-self.lambtha)) * (self.lambtha ** k))
                / self.factorial(k))
         return pmf
