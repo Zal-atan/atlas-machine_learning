@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Module for creating class Poisson"""
+e = 2.7182818285
 
 
 class Poisson():
@@ -28,12 +29,21 @@ class Poisson():
             return n * self.factorial(n-1)
 
     def pmf(self, k):
-        """Calculates the value of the PMF for a given number of "successes"""
+        """Calculates the value of the PMF for a given number of 'successes'"""
         if not isinstance(k, int):
             k = int(k)
         if k < 0:
             return 0
-        e = 2.7182818285
         pmf = (((e ** (-self.lambtha)) * (self.lambtha ** k))
                / self.factorial(k))
         return pmf
+
+    def cdf(self, k):
+        """Calculates the value of CDF for a given number of 'successes'"""
+        if not isinstance(k, int):
+            k = int(k)
+        if k < 0:
+            return 0
+
+        return sum(map(lambda x: (((e ** -self.lambtha) * (self.lambtha ** x))
+                                  / self.factorial(x)), range(0, k + 1)))
