@@ -24,4 +24,6 @@ class Exponential():
 
     def pdf(self, x):
         """Calculates the value of the PDF for a given time period"""
+        if x < 0:
+            return 0
         return (self.lambtha * (e ** (-self.lambtha * x)))
