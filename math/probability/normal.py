@@ -22,3 +22,6 @@ class Normal():
             self.stddev = (1/n * sum(map(lambda x:
                                          ((data[x] - self.mean) ** 2),
                                          range(0, n)))) ** .5
+
+        if self.stddev <= 0:
+            raise ValueError("stddev must be a positive value")
