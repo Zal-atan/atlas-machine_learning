@@ -49,3 +49,12 @@ class Binomial():
                                                  self.factorial(self.n - k))
 
         return n_choose_k * (self.p ** k) * ((1 - self.p) ** (self.n - k))
+
+    def cdf(self, k):
+        """Calculates the value of the CDF for a given number of 'successes'"""
+        if not isinstance(k, int):
+            k = int(k)
+        if k < 0:
+            return 0
+
+        return sum(map(lambda x: self.pmf(x), range(0, k+1)))
