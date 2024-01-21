@@ -11,6 +11,8 @@ class Neuron():
         Initiates class Neuron
         nx is the number of input features to the neuron. Must be an integer
         of greater than or equal to 1
+        Sets Private attributes W, b, A. W is the weights. b is bias which is
+        initially set to 0. A is activated output, default 0.
         """
         nx_is_int = isinstance(nx, int)
         nx_ge_1 = nx >= 1
@@ -20,6 +22,21 @@ class Neuron():
             raise ValueError("nx must be a positive integer")
         self.nx = nx
 
-        self.W = np.random.randn(1, nx)
-        self.b = 0
-        self.A = 0
+        self.__W = np.random.randn(1, nx)
+        self.__b = 0
+        self.__A = 0
+
+    @property
+    def W(self):
+        """Getter function for private attribute W"""
+        return self.__W
+
+    @property
+    def b(self):
+        """Getter function for private attribute b"""
+        return self.__b
+
+    @property
+    def A(self):
+        """Getter function for private attribute A"""
+        return self.__A
