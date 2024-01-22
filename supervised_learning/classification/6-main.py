@@ -35,5 +35,5 @@ for i in range(100):
     plt.title(A[0, i])
     plt.axis('off')
 plt.tight_layout()
-plt.savefig("./plot6.png")
+plt.savefig("./6-plot_numbers.png")
 plt.show()
