@@ -181,7 +181,6 @@ class Neuron():
                 cost = self.cost(Y, self.__A)
                 y_axis.append(cost)
 
-
         plt.plot(x_axis, y_axis)
         plt.title("Training Cost")
         plt.xlabel("iteration")
