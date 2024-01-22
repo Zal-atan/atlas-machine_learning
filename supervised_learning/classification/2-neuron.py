@@ -50,5 +50,5 @@ class Neuron():
         """
         output = np.matmul(self.__W, X) + self.__b
         sigmoid = 1 / (1 + np.exp(-output))
-        self.__A == sigmoid
+        self.__A = sigmoid
         return self.__A
