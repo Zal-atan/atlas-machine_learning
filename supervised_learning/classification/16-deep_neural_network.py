@@ -26,9 +26,8 @@ class DeepNeuralNetwork():
         nx_is_int = isinstance(nx, int)
         nx_ge_1 = nx >= 1
         layers_is_list_ints = isinstance(layers, list)
-        for item in layers:
-            if (not isinstance(item, int)) or item <= 0 or len(layers) < 1:
-                layers_is_list_ints = False
+        if len(layers) < 1:
+            layers_is_list_ints = False
 
         if not nx_is_int:
             raise TypeError("nx must be an integer")
@@ -45,6 +44,9 @@ class DeepNeuralNetwork():
         weights_dict = {}
 
         for l in range(self.L):
+            if not isinstance(layers[l], int) or layers[l] < 0:
+                raise TypeError("layers must be a list of positive integers")
+
             weights_dict[f"b{l}"] = np.zeros((layers[l], 1))
             weights_dict[f"W{l}"] = (np.random.randn(layers[l], previous) *
                                      np.sqrt(2/ previous))
