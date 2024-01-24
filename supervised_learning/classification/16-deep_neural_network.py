@@ -44,13 +44,15 @@ class DeepNeuralNetwork():
         weights_dict = {}
 
         for l in range(self.L):
-            if not isinstance(layers[l], int) or layers[l] < 0:
+            if not isinstance(layers[l], int):
+                raise TypeError("layers must be a list of positive integers")
+            if len(layers) < 1 or layers[l] < 0:
                 raise TypeError("layers must be a list of positive integers")
 
-            weights_dict["b{}".format(l)] = np.zeros((layers[l], 1))
             weights_dict["W{}".format(l)] = (np.random.randn(layers[l],
                                                              previous) *
                                              np.sqrt(2 / previous))
+            weights_dict["b{}".format(l)] = np.zeros((layers[l], 1))
             previous = layers[l]
 
         self.weights = weights_dict
