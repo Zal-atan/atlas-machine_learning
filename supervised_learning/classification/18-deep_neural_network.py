@@ -90,6 +90,6 @@ class DeepNeuralNetwork():
             b = self.weights["b{}".format(layer + 1)]
             current_A = self.cache["A{}".format(layer)]
             z = np.matmul(W, current_A) + b
-            A = 1 / (1 - (np.exp(-z)))
+            A = 1 / (1 + (np.exp(-z)))
             self.__cache["A{}".format(layer + 1)] = A
         return (A, self.cache)
