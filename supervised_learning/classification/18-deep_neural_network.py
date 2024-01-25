@@ -75,13 +75,13 @@ class DeepNeuralNetwork():
         """
         Calculates the forward propogation of the neural network. All neurons
         will use the sigmoid activation function.
-        
+
         Inputs:
         X - a numpy.ndarray that contains the input data.
-        
+
         Updates:
         __cache as a ditionary with the output of each layer as A{l}
-        
+
         Returns:
         Returns the output of the neural network"""
         self.__cache["A0"] = X
