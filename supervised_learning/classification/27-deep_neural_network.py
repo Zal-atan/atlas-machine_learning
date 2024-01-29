@@ -4,6 +4,12 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
+def sigmoid(x):
+    """
+    sigmoid function
+    """
+    return np.exp(-np.logaddexp(0., -x))
+
 class DeepNeuralNetwork():
     """ Defines a deep neural network performing binary classification"""
 
@@ -91,9 +97,17 @@ class DeepNeuralNetwork():
             b = self.weights["b{}".format(layer + 1)]
             current_A = self.cache["A{}".format(layer)]
             z = np.matmul(W, current_A) + b
-            A = 1 / (1 + (np.exp(-z)))
+
+            if layer == (self.L - 1):
+                # for first layer activation
+                A = np.exp(z) / np.sum(np.exp(z), axis=0, keepdims=True)
+            else:
+                # Hidden layers activation function: sigmoid
+                A = sigmoid(z)
+
             self.__cache["A{}".format(layer + 1)] = A
-        return (A, self.cache)
+
+        return A, self.cache
 
     def cost(self, Y, A):
         """
@@ -109,8 +123,7 @@ class DeepNeuralNetwork():
         C - Cost of the model
         """
         m = Y.shape[1]
-        C = -1 / m * (np.sum((Y * np.log(A)) + ((1 - Y) *
-                                                np.log(1.0000001 - A))))
+        C = (-1 / m) * (np.sum((Y * np.log(A))))
         return C
 
     def evaluate(self, X, Y):
