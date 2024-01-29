@@ -219,7 +219,7 @@ class DeepNeuralNetwork():
             self.gradient_descent(Y, self.cache, alpha)
 
             if verbose and (i == 0 or i % step == 0):
-                print(f"Cost after {i} iterations: {self.cost(Y, A)}")
+                print("Cost after {} iterations: {}".format(i, self.cost(Y, A)))
 
             if graph and (i == 0 or i % step == 0):
                 x_axis.append(i)
