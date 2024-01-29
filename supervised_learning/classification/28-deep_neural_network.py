@@ -8,7 +8,7 @@ def sigmoid(z):
     """
     sigmoid function
     """
-    return np.exp(-np.logaddexp(0., -x))
+    return np.exp(-np.logaddexp(0., -z))
 
 
 def tanh(z):
