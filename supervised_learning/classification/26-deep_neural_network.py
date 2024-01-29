@@ -225,13 +225,13 @@ class DeepNeuralNetwork():
                 x_axis.append(i)
                 cost = self.cost(Y, A)
                 y_axis.append(cost)
-
-        plt.plot(x_axis, y_axis)
-        plt.title("Training Cost")
-        plt.xlabel("iteration")
-        plt.ylabel("cost")
-        plt.savefig("./23-training_cost.png")
-        plt.show()
+        if graph:
+            plt.plot(x_axis, y_axis)
+            plt.title("Training Cost")
+            plt.xlabel("iteration")
+            plt.ylabel("cost")
+            plt.savefig("./23-training_cost.png")
+            plt.show()
         return self.evaluate(X, Y)
 
     def save(self, filename):
