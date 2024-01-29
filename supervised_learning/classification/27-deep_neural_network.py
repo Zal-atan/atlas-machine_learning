@@ -10,6 +10,7 @@ def sigmoid(x):
     """
     return np.exp(-np.logaddexp(0., -x))
 
+
 class DeepNeuralNetwork():
     """ Defines a deep neural network performing binary classification"""
 
