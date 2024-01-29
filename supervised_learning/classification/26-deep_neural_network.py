@@ -214,12 +214,13 @@ class DeepNeuralNetwork():
 
         x_axis = []
         y_axis = []
-        for i in range(0, iterations + 1):
+        for i in range(0, iterations):
             A, B = self.forward_prop(X)
             self.gradient_descent(Y, self.cache, alpha)
 
             if verbose and (i == 0 or i % step == 0):
-                print("Cost after {} iterations: {}".format(i, self.cost(Y, A)))
+                print("Cost after {} iterations: {}"
+                      .format(i, self.cost(Y, A)))
 
             if graph and (i == 0 or i % step == 0):
                 x_axis.append(i)
