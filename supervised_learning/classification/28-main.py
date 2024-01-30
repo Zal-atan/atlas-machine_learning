@@ -78,5 +78,5 @@ for i in range(100):
     plt.title(A28[i])
     plt.axis('off')
 plt.tight_layout()
-plt.savefig("./28-plot_numbers1.png")
+plt.savefig("./28-plot_numbers2.png")
 plt.show()

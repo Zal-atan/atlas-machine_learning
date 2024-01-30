@@ -180,21 +180,20 @@ class DeepNeuralNetwork():
         """
 
         m = Y.shape[1]
+        A_start = self.cache["A{}".format(self.L)]
+        dz = (A_start - Y)
 
         for layer in range(self.L, 0, -1):
-            A_current = self.cache["A{}".format(layer)]
             A_previous = self.cache["A{}".format(layer - 1)]
-
-            if layer == self.__L:
-                dz = (A_current - Y)
-            else:
-                dz = dA_prev * (A_current * (1 - A_current))
-
             dW = (1 / m) * (np.matmul(dz, A_previous.T))
             db = (1 / m) * (np.sum(dz, axis=1, keepdims=True))
-
             W = self.weights["W{}".format(layer)]
-            dA_prev = np.matmul(W.T, dz)
+            dz = np.matmul(W.T, dz)
+
+            if self.activation == "sig":
+                dz *= (A_previous * (1 - A_previous))
+            else:
+                dz *= (1 - A_previous ** 2)
 
             self.__weights["W{}".format(layer)] = (
                 self.__weights["W{}".format(layer)] - (alpha * dW))
