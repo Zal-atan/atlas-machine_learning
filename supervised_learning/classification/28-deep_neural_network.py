@@ -160,7 +160,7 @@ class DeepNeuralNetwork():
         """
 
         A, B = self.forward_prop(X)
-        predict = np.where(A >= 0.5, 1, 0)
+        predict = np.where(A == np.amax(A, axis=0), 1, 0)
 
         C = self.cost(Y, A)
         return (predict, C)
