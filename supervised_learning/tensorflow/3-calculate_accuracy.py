@@ -19,7 +19,7 @@ def calculate_accuracy(y, y_pred):
 
     y = tf.math.argmax(y, axis=1)
     y_pred = tf.math.argmax(y_pred, axis=1)
-    
+
     prediction = tf.equal(y, y_pred)
     accuracy = tf.reduce_mean(tf.cast(prediction, tf.float32))
 
