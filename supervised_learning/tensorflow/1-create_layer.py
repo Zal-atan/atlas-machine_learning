@@ -17,7 +17,6 @@ def create_layer(prev, n, activation):
     Return:
     tensor output of the layer
     """
-    initializer = tf.keras.initializers.VarianceScaling(mode="fan_avg", 
-                                                        distribution="uniform")
-    return tf.layers.dense(prev, n , activation=activation,
+    initializer = tf.keras.initializers.VarianceScaling(mode="fan_avg")
+    return tf.layers.dense(prev, n, activation=activation,
                            kernel_initializer=initializer)
