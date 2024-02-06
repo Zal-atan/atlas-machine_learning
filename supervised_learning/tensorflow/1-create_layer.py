@@ -3,7 +3,6 @@
 Create a function create_layer(prev, n, activation):
 """
 import tensorflow.compat.v1 as tf
-import tensorflow as tf
 
 
 def create_layer(prev, n, activation):
