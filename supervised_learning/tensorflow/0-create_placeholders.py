@@ -2,7 +2,7 @@
 """
 Create a function create_placeholders(nx, classes)
 """
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
 
 
 def create_placeholders(nx, classes):
