@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Create a function train(X_train, Y_train, X_valid, Y_valid, layer_sizes, 
+Create a function train(X_train, Y_train, X_valid, Y_valid, layer_sizes,
 activations, alpha, iterations, save_path="/tmp/model.ckpt"):
 """
 import tensorflow.compat.v1 as tf
@@ -61,9 +61,8 @@ def train(X_train, Y_train, X_valid, Y_valid, layer_sizes, activations, alpha,
             print(f"\tTraining Accuracy: {train_accuracy}")
             print(f"\tValidation Cost: {valid_loss}")
             print(f"\tValidation Accuracy: {valid_accuracy}")
-                                                        
+
         if iter < iterations:
             sess.run(train_op, feed_dict={x: X_train, y: Y_train})
 
     return saver.save(sess, save_path)
-
