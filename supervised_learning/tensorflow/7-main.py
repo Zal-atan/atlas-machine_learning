@@ -22,6 +22,7 @@ if __name__ == '__main__':
     Y_pred_oh, accuracy, cost = evaluate(X_test, Y_test_oh, './model.ckpt')
     print("Test Accuracy:", accuracy)
     print("Test Cost:", cost)
+    print("Y_pred:", Y_pred_oh)
 
     Y_pred = np.argmax(Y_pred_oh, axis=1)
 

@@ -4,6 +4,7 @@ Create a function evaluate(X, Y, save_path):
 """
 import tensorflow.compat.v1 as tf
 
+
 def evaluate(X, Y, save_path):
     """
     Evaluates the output of a neural network
