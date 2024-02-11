@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """ This module creates update_variables_RMSProp(alpha, beta2, epsilon,
 var, grad, s): function"""
-import numpy as np
 import tensorflow.compat.v1 as tf
 
 
