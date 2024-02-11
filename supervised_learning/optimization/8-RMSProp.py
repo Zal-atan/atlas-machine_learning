@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-""" This module creates create_RMSProp_op(loss, alpha, beta2, epsilon) 
+""" This module creates create_RMSProp_op(loss, alpha, beta2, epsilon)
 function
 """
 import tensorflow.compat.v1 as tf
@@ -22,5 +22,5 @@ def create_RMSProp_op(loss, alpha, beta2, epsilon):
     optimizer = tf.train.RMSPropOptimizer(learning_rate=alpha,
                                           decay=beta2,
                                           epsilon=epsilon).minimize(loss)
-    
+
     return optimizer
