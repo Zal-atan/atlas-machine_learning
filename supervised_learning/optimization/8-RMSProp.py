@@ -1,25 +1,26 @@
 #!/usr/bin/env python3
-""" This module creates update_variables_RMSProp(alpha, beta2, epsilon,
-var, grad, s): function"""
+""" This module creates create_RMSProp_op(loss, alpha, beta2, epsilon) 
+function
+"""
 import tensorflow.compat.v1 as tf
 
 
-def update_variables_RMSProp(alpha, beta2, epsilon, var, grad, s):
+def create_RMSProp_op(loss, alpha, beta2, epsilon):
     """
-    updates a variable using the RMSProp optimization algorithm
+    Creates the training operation for a neural network in tensorflow using
+    the RMSProp optimization algorithm
 
     Inputs:
+    loss - loss of the network
     alpha - learning rate
     beta2 - RMSProp weight
     epsilon - small number to avoid division by zero
-    var - numpy.ndarray containing the variable to be updated
-    grad - numpy.ndarray containing the gradient of var
-    s - previous second moment of var
 
     Returns:
-    The updated variable and the new moment, respectively
+    The RMSProp optimization operation
     """
-    moment = (beta2 * s) + ((1 - beta2) * (grad ** 2))
-    updated_var = var - (alpha * (grad / ((moment ** (1 / 2)) + epsilon)))
-
-    return updated_var, moment
+    optimizer = tf.train.RMSPropOptimizer(learning_rate=alpha,
+                                          decay=beta2,
+                                          epsilon=epsilon).minimize(loss)
+    
+    return optimizer
