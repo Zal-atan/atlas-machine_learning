@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+"""This module creates the function create_momentum_op(loss, alpha, beta1)"""
 import tensorflow.compat.v1 as tf
 
 
