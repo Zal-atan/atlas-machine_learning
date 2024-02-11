@@ -19,12 +19,6 @@ def update_variables_momentum(alpha, beta1, var, grad, v):
     Returns:
     The updated variable and the new moment, respectively
     """
-
-    EMA = 0
-    EMA_list = []
-    for i in range(len(data)):
-        EMA = (beta * EMA) + ((1 - beta) * data[i])
-        bias_correction = EMA / (1 - (beta ** (i + 1)))
-        EMA_list.append(bias_correction)
-
-    return EMA_list
+    V = (beta1 * v) + ((1 - beta1) * grad)
+    W = var - (alpha * V)
+    return W, V
