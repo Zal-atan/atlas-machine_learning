@@ -19,4 +19,7 @@ def update_variables_RMSProp(alpha, beta2, epsilon, var, grad, s):
     Returns:
     The updated variable and the new moment, respectively
     """
-    """ This module creates create_momentum_op(loss, alpha, beta1) function"""
+    moment = (beta2 * s) + ((1 - beta2) * (grad ** 2))
+    updated_var = var - (alpha * (grad / ((moment ** (1 / 2)) + epsilon)))
+
+    return updated_var, moment
