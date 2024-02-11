@@ -1,21 +1,22 @@
 #!/usr/bin/env python3
-""" This module creates create_momentum_op(loss, alpha, beta1) function"""
-import numpy as np
+""" This module creates update_variables_RMSProp(alpha, beta2, epsilon,
+var, grad, s): function"""
 import tensorflow.compat.v1 as tf
 
 
-def create_momentum_op(loss, alpha, beta1):
+def update_variables_RMSProp(alpha, beta2, epsilon, var, grad, s):
     """
-    Creates the training operation for a neural network in tensorflow using
-    the gradient descent with momentum optimization algorithm.
+    updates a variable using the RMSProp optimization algorithm
 
     Inputs:
-    loss - loss of the network
     alpha - learning rate
-    beta1 - momentum weight
+    beta2 - RMSProp weight
+    epsilon - small number to avoid division by zero
+    var - numpy.ndarray containing the variable to be updated
+    grad - numpy.ndarray containing the gradient of var
+    s - previous second moment of var
 
     Returns:
-    The momentum optimization operation
+    The updated variable and the new moment, respectively
     """
-    optimized = tf.train.MomentumOptimizer(alpha, beta1).minimize(loss)
-    return optimized
+    """ This module creates create_momentum_op(loss, alpha, beta1) function"""
