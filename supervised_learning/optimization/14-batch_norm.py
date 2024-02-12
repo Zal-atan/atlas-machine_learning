@@ -11,7 +11,8 @@ def create_batch_norm_layer(prev, n, activation):
     Inputs:
     prev - activated output of the previous layer
     n - number of nodes in the layer to be created
-    activation - activation function that should be used on the output of the layer
+    activation - activation function that should be used on the output
+                 of the layer
 
     Returns:
     Tensor of the activated output for the layer
@@ -19,7 +20,7 @@ def create_batch_norm_layer(prev, n, activation):
 
     init = tf.keras.initializers.VarianceScaling(mode='fan_avg')
     dense_layer = tf.keras.layers.Dense(units=n, activation=None,
-                                   kernel_initializer=init)
+                                        kernel_initializer=init)
 
     z = dense_layer(prev)
     mean, variance = tf.nn.moments(z, 0)
