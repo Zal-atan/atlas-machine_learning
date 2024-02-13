@@ -40,6 +40,7 @@ def train_mini_batch(X_train, Y_train, X_valid, Y_valid, batch_size=32,
         accuracy = tf.get_collection('accuracy')[0]
         loss = tf.get_collection('loss')[0]
         train_op = tf.get_collection('train_op')[0]
+        length = X_train.shape[0]
 
         # Get even batch size
         mini_batch_size = len(X_train)//batch_size
@@ -63,10 +64,10 @@ def train_mini_batch(X_train, Y_train, X_valid, Y_valid, batch_size=32,
 
             if i < epochs:
                 X_shuffled, Y_shuffled = shuffle_data(X_train, Y_train)
+                start = 0
+                end = batch_size
 
                 for batch in range(mini_batch_size):
-                    start = batch_size * batch
-                    end = batch_size * (batch + 1)
                     train_batch = X_shuffled[start:end]
                     train_label = Y_shuffled[start:end]
                     train_dict = {x: train_batch, y: train_label}
@@ -82,6 +83,12 @@ def train_mini_batch(X_train, Y_train, X_valid, Y_valid, batch_size=32,
                         print(f"\tStep {batch}:")
                         print(f"\t\tCost: {batch_cost}")
                         print(f"\t\tAccuracy: {batch_accuracy}")
+
+                    start += batch_size
+                    if (length - start) < batch_size:
+                        end += (length - start)
+                    else:
+                        end += batch_size
 
         save_path = saver.save(sess, save_path)
         return save_path
