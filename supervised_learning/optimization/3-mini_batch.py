@@ -74,6 +74,8 @@ def train_mini_batch(X_train, Y_train, X_valid, Y_valid, batch_size=32,
                     batch_train = sess.run(train_op, train_dict)
 
                     if batch % 100 == 0:
+                        if batch == 0:
+                            continue
                         batch_cost = sess.run(loss, train_dict)
                         batch_accuracy = sess.run(accuracy, train_dict)
 
