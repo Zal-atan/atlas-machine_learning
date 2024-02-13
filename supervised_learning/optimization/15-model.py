@@ -3,7 +3,6 @@
 """
 import tensorflow.compat.v1 as tf
 import numpy as np
-# import tensorflow as tf
 
 
 def create_layer(prev, n, activation):
@@ -46,8 +45,6 @@ def create_batch_norm_layer(prev, n, activation, epsilon, final):
                                         kernel_initializer=init)
 
     z = dense_layer(prev)
-
-    # import pdb; pdb.set_trace()
 
     if final:
         return z
