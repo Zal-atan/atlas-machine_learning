@@ -32,7 +32,7 @@ def train_mini_batch(X_train, Y_train, X_valid, Y_valid, batch_size=32,
 
     with tf.Session() as sess:
         saver = tf.train.import_meta_graph(load_path + '.meta')
-        saver.restore(sess, load_path) # Reload wights from save
+        saver.restore(sess, load_path)  # Reload wights from save
 
         # Reload attributes from save
         x = tf.get_collection('x')[0]
