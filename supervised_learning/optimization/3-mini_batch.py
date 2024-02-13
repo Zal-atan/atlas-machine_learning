@@ -82,3 +82,4 @@ def train_mini_batch(X_train, Y_train, X_valid, Y_valid, batch_size=32,
                         print(f"\t\tAccuracy: {batch_accuracy}")
 
         save_path = saver.save(sess, save_path)
+        return save_path
