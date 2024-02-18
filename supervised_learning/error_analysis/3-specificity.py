@@ -20,7 +20,7 @@ def specificity(confusion):
     all_instances = np.sum(confusion)
     true_positives = np.diag(confusion)
     predicted_positives = np.sum(confusion, axis=0)
-    positives = np.sum(confusion, axis = 1)
+    positives = np.sum(confusion, axis=1)
 
     true_negatives = (all_instances - predicted_positives -
                       positives + true_positives)
