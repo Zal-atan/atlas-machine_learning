@@ -9,7 +9,7 @@ def dropout_forward_prop(X, weights, L, keep_prob):
     gradient descent with L2 regularization
 
     Inputs:
-    X - numpy.ndarray of shape (nx, m) containing the input data for the network
+    X - numpy.ndarray shape (nx, m) containing the input data for the network
         classes - number of classes
         m - number of data points
     weights - dictionary of the weights and biases of the neural network
