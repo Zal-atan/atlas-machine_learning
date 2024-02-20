@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
 """This module will create the l2_reg_create_layer function"""
 import tensorflow.compat.v1 as tf
-import tensorflow as tf
-
 
 def l2_reg_create_layer(prev, n, activation, lambtha):
     """
