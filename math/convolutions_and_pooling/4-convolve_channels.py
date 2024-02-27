@@ -32,14 +32,14 @@ def convolve_channels(images, kernel, padding='same', stride=(1, 1)):
     Return:
     numpy.ndarray containing the convolved images
     """
-    m, height, width = images.shape[0], images.shape[1], images.shape[2]
+    m, h, w = images.shape[0], images.shape[1], images.shape[2]
     c = images.shape[3]
     kh, kw = kernel.shape[0], kernel.shape[1]
     sh, sw = stride[0], stride[1]
 
     if padding == 'same':
-        pad_top_bottom = (((height - 1) * sh) + kh - height) // 2 + 1
-        pad_left_right = (((width - 1) * sh) + kw - width) // 2 + 1
+        pad_top_bottom = (((h - 1) * sh) + kh - h) // 2 + 1
+        pad_left_right = (((w - 1) * sw) + kw - w) // 2 + 1
 
     elif padding == 'valid':
         pad_top_bottom = 0
