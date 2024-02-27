@@ -11,6 +11,37 @@
 ### There are 14 tasks in this project
 
 ## Task 0
+* Write a function def build_model(nx, layers, activations, lambtha, keep_prob): that builds a neural network with the Keras library:
+
+    * nx is the number of input features to the network
+    * layers is a list containing the number of nodes in each layer of the network
+    * activations is a list containing the activation functions used for each layer of the network
+    * lambtha is the L2 regularization parameter
+    * keep_prob is the probability that a node will be kept for dropout
+    * You are not allowed to use the Input class
+    * Returns: the keras model
+
+## Task 1
+* Write a function def build_model(nx, layers, activations, lambtha, keep_prob): that builds a neural network with the Keras library:
+
+    * nx is the number of input features to the network
+    * layers is a list containing the number of nodes in each layer of the network
+    * activations is a list containing the activation functions used for each layer of the    * network
+    * lambtha is the L2 regularization parameter
+    * keep_prob is the probability that a node will be kept for dropout
+    * You are not allowed to use the Sequential class
+    * Returns: the keras model
+
+## Task 2
+* Write a function def optimize_model(network, alpha, beta1, beta2): that sets up Adam optimization for a keras model with categorical crossentropy loss and accuracy metrics:
+
+    * network is the model to optimize
+    * alpha is the learning rate
+    * beta1 is the first Adam optimization parameter
+    * beta2 is the second Adam optimization parameter
+    * Returns: None
+
+## Task 3
 * Write a function def one_hot(labels, classes=None): that converts a label vector into a one-hot matrix:
 
     * The last dimension of the one-hot matrix must be the number of classes
