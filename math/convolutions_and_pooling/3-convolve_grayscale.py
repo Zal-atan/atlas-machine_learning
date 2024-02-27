@@ -54,7 +54,7 @@ def convolve_grayscale(images, kernel, padding='same', stride=(1, 1)):
 
     images = np.pad(images, ((0, 0), (pad_top_bottom, pad_top_bottom),
                              (pad_left_right, pad_left_right)),
-                             mode='constant')
+                    mode='constant', constant_values=0)
 
     for x in range(height):
         for y in range(width):
