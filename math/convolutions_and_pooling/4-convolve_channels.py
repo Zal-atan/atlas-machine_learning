@@ -1,18 +1,19 @@
 #!/usr/bin/env python3
-""" This module creates the convolve_grayscale function"""
+""" This module creates the convolve_channels function"""
 import numpy as np
 
 
-def convolve_grayscale(images, kernel, padding='same', stride=(1, 1)):
+def convolve_channels(images, kernel, padding='same', stride=(1, 1)):
     """
-    Performs a convolution on grayscale images
+    Performs a convolution on images with channels:
 
     Inputs:
-    images - numpy.ndarray with shape (m, h, w) containing multiple
+    images - numpy.ndarray with shape (m, h, w, c) containing multiple
         grayscale images
         * m - number of images
         * h - height in pixels of the images
         * w - width in pixels of the images
+        * c - number of channels in the image
     kernel - numpy.ndarray with shape (kh, kw) containing the kernel
         for the convolution
         * kh - height of the kernel
@@ -32,6 +33,7 @@ def convolve_grayscale(images, kernel, padding='same', stride=(1, 1)):
     numpy.ndarray containing the convolved images
     """
     m, height, width = images.shape[0], images.shape[1], images.shape[2]
+    c = images.shape[3]
     kh, kw = kernel.shape[0], kernel.shape[1]
     sh, sw = stride[0], stride[1]
 
@@ -53,14 +55,13 @@ def convolve_grayscale(images, kernel, padding='same', stride=(1, 1)):
     conv_matrix = np.zeros((m, height, width))
 
     images = np.pad(images, ((0, 0), (pad_top_bottom, pad_top_bottom),
-                             (pad_left_right, pad_left_right)),
-                             mode='constant')
+                             (pad_left_right, pad_left_right), (0, 0)))
 
     for x in range(height):
         for y in range(width):
             i = x * sh
             j = y * sw
             output = np.multiply(images[:, i:i + kh, j:j + kw], kernel)
-            conv_matrix[:, x, y] = np.sum(output, axis=(1, 2))
+            conv_matrix[:, x, y] = np.sum(output, axis=(1, 2, 3))
 
     return conv_matrix
