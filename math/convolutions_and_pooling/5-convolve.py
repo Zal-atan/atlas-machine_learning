@@ -3,7 +3,7 @@
 import numpy as np
 
 
-def convolve_channels(images, kernel, padding='same', stride=(1, 1)):
+def convolve(images, kernels, padding='same', stride=(1, 1)):
     """
     Performs a convolution on images with channels:
 
@@ -14,10 +14,11 @@ def convolve_channels(images, kernel, padding='same', stride=(1, 1)):
         * h - height in pixels of the images
         * w - width in pixels of the images
         * c - number of channels in the image
-    kernel - numpy.ndarray with shape (kh, kw) containing the kernel
+    kernels - numpy.ndarray with shape (kh, kw, c, nc) containing the kernel
         for the convolution
         * kh - height of the kernel
         * kw - width of the kernel
+        * nc - the number of kernels
     padding - tuple of (ph, pw)
         if ‘same’, performs a same convolution
         if ‘valid’, performs a valid convolution
@@ -32,10 +33,9 @@ def convolve_channels(images, kernel, padding='same', stride=(1, 1)):
     Return:
     numpy.ndarray containing the convolved images
     """
-    m, h, w = images.shape[0], images.shape[1], images.shape[2]
-    c = images.shape[3]
-    kh, kw = kernel.shape[0], kernel.shape[1]
-    sh, sw = stride[0], stride[1]
+    m, h, w, c = images.shape
+    kh, kw, kc, knc = kernels.shape
+    sh, sw = stride
 
     if padding == 'same':
         pad_top_bottom = (((h - 1) * sh) + kh - h) // 2 + 1
@@ -49,19 +49,21 @@ def convolve_channels(images, kernel, padding='same', stride=(1, 1)):
         pad_top_bottom = padding[0]
         pad_left_right = padding[1]
 
-    height = (height + (2 * pad_top_bottom) - kh) // sh + 1
-    width = (width + (2 * pad_left_right) - kw) // sw + 1
+    height = (h + (2 * pad_top_bottom) - kh) // sh + 1
+    width = (w + (2 * pad_left_right) - kw) // sw + 1
 
-    conv_matrix = np.zeros((m, height, width))
+    conv_matrix = np.zeros((m, height, width, knc))
 
     images = np.pad(images, ((0, 0), (pad_top_bottom, pad_top_bottom),
                              (pad_left_right, pad_left_right), (0, 0)))
 
     for x in range(height):
         for y in range(width):
-            i = x * sh
-            j = y * sw
-            output = np.multiply(images[:, i:i + kh, j:j + kw], kernel)
-            conv_matrix[:, x, y] = np.sum(output, axis=(1, 2, 3))
+            for z in range(knc):
+                i = x * sh
+                j = y * sw
+                output = np.multiply(images[:, i:i + kh, j:j + kw, :],
+                                    kernels[:, :, :, z])
+                conv_matrix[:, x, y, z] = np.sum(output, axis=(1, 2, 3))
 
     return conv_matrix
