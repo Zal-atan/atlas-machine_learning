@@ -49,8 +49,8 @@ def convolve_channels(images, kernel, padding='same', stride=(1, 1)):
         pad_top_bottom = padding[0]
         pad_left_right = padding[1]
 
-    height = (h + (2 * pad_top_bottom) - kh) // sh + 1
-    width = (w + (2 * pad_left_right) - kw) // sw + 1
+    height = (height + (2 * pad_top_bottom) - kh) // sh + 1
+    width = (width + (2 * pad_left_right) - kw) // sw + 1
 
     conv_matrix = np.zeros((m, height, width))
 
