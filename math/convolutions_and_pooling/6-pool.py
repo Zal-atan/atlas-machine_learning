@@ -13,9 +13,10 @@ def pool(images, kernel_shape, stride, mode='max'):
         h - height in pixels of the images
         w - width in pixels of the images
         c - number of channels in the image
-    kernel_shape is a tuple of (kh, kw) containing the kernel shape for the pooling
-        kh - height of the kernel
-        kw - width of the kernel
+    kernel_shape is a tuple of (kh, kw) containing the kernel shape
+        for the pooling
+        * kh - height of the kernel
+        * kw - width of the kernel
     stride is a tuple of (sh, sw)
         sh - stride for the height of the image
         sw - stride for the width of the image
