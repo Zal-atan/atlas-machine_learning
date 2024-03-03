@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """This module creates the lenet5 function"""
 import tensorflow.keras as K
-import numpy as np
 
 
 def lenet5(X):
