@@ -59,16 +59,17 @@ def conv_backward(dZ, A_prev, W, b, padding="same", stride=(1, 1)):
     for i in range(m):
         for j in range(c_new):
             for k in range(h_new):
-                for l in range(w_new):
+                for x in range(w_new):
                     v_start = k * sh
                     v_end = v_start + kh
-                    h_start = l * sw
+                    h_start = x * sw
                     h_end = h_start + kw
                     padded_slice = padded_image[i,
-                                                v_start:v_end, h_start:h_end, :]
+                                                v_start:v_end,
+                                                h_start:h_end, :]
                     dA_prev[i, v_start:v_end, h_start:h_end,
-                            :] += W[:, :, :, j] * dZ[i, k, l, j]
-                    dW[:, :, :, j] += padded_slice * dZ[i, k, l, j]
+                            :] += W[:, :, :, j] * dZ[i, k, x, j]
+                    dW[:, :, :, j] += padded_slice * dZ[i, k, x, j]
     if padding == "same":
         dA_prev = dA_prev[:, ph:-ph, pw:-pw, :]
     return dA_prev, dW, db
