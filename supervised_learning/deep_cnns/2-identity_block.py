@@ -22,19 +22,19 @@ def identity_block(A_prev, filters):
     F11, F3, F12 = filters
 
     # 1x1 convolution
-    output = K.layers.Conv2D(F11, 1, 1, padding='same',
+    output = K.layers.Conv2D(F11, 1, padding='same',
                              kernel_initializer='he_normal')(A_prev)
     output = K.layers.BatchNormalization()(output)
     output = K.layers.Activation('relu')(output)
 
     # 3x3 convolution
-    output = K.layers.Conv2D(F3, 3, 1, padding='same',
+    output = K.layers.Conv2D(F3, 3, padding='same',
                              kernel_initializer='he_normal')(output)
     output = K.layers.BatchNormalization()(output)
     output = K.layers.Activation('relu')(output)
 
     # 1x1 convolution
-    output = K.layers.Conv2D(F12, 1, 1, padding='same',
+    output = K.layers.Conv2D(F12, 1, padding='same',
                              kernel_initializer='he_normal')(output)
     output = K.layers.BatchNormalization()(output)
 
@@ -42,4 +42,4 @@ def identity_block(A_prev, filters):
     output = K.layers.Add()([output, A_prev])
 
     # Return the activated output
-    return K.activations.relu(output)
+    return K.activations.Activation('relu')(output)
