@@ -23,23 +23,23 @@ def projection_block(A_prev, filters, s=2):
     F11, F3, F12 = filters
 
     # 1x1 convolution
-    output = K.layers.Conv2D(F11, 1, s, padding='same',
+    output = K.layers.Conv2D(F11, 1, s,
                              kernel_initializer='he_normal')(A_prev)
     output = K.layers.BatchNormalization()(output)
     output = K.layers.Activation('relu')(output)
 
     # 3x3 convolution
-    output = K.layers.Conv2D(F3, 3, 1, padding='same',
+    output = K.layers.Conv2D(F3, 3, padding='same',
                              kernel_initializer='he_normal')(output)
     output = K.layers.BatchNormalization()(output)
     output = K.layers.Activation('relu')(output)
 
     # 1x1 convolution
-    output = K.layers.Conv2D(F12, 1, 1, padding='same',
+    output = K.layers.Conv2D(F12, 1,
                              kernel_initializer='he_normal')(output)
     output = K.layers.BatchNormalization()(output)
 
-    output2 = K.layers.Conv2D(F12, 1, s, padding='same',
+    output2 = K.layers.Conv2D(F12, 1, s,
                               kernel_initializer='he_normal')(A_prev)
     output2 = K.layers.BatchNormalization()(output2)
 
@@ -47,4 +47,4 @@ def projection_block(A_prev, filters, s=2):
     output = K.layers.add([output, output2])
 
     # Return the activated output
-    return K.activations.relu(output)
+    return K.layers.Activation('relu')(output)
