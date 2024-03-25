@@ -4,9 +4,10 @@ CIFAR 10 dataset"""
 import tensorflow.keras as K
 
 
-epochs = 15
-batch_size = 64
-img_reshape = 160
+epochs = 25
+batch_size = 128
+# img_reshape = 160
+# input_shape = (img_reshape, img_reshape, 3)
 
 def preprocess_data(X, Y):
     """
@@ -33,42 +34,62 @@ if __name__ == "__main__":
 
     inputs = K.Input(shape=(32, 32, 3))
     input_resized = K.layers.Lambda(lambda image: K.backend.resize_images(
-        image, img_reshape/32, img_reshape/32, "channels_last"))(inputs)
+        image, 160/32, 160/32, "channels_last"))(inputs)
     
-    base_model = K.applications.DenseNet121(include_top=False,
-                                             weights='imagenet',
-                                             input_tensor=input_resized,
-                                             input_shape=(img_reshape,
-                                                          img_reshape, 3),
-                                             pooling='max')
-    base_model.trainable = False
+    # base_model = K.applications.DenseNet121(include_top=False,
+    #                                          weights='imagenet',
+    #                                          input_tensor=input_resized,
+    #                                          input_shape=(160, 160, 3),
+    #                                          pooling='avg')
+    # base_model.trainable = False
+    base_model = K.applications.InceptionV3(include_top=False,
+                                            weights='imagenet',
+                                            input_tensor=input_resized,
+                                            input_shape=(160, 160, 3),
+                                            pooling='avg')
 
     model = K.models.Sequential()
     model.add(base_model)
-    model.add(K.layers.BatchNormalization())
-    # model.add(K.layers.MaxPooling2D(pool_size=(2, 2)))
-    model.add(K.layers.Dropout(0.25))
-
 
     model.add(K.layers.Flatten())
-    model.add(K.layers.Dense(512, activation=('relu')))
-    # model.add(K.layers.Dropout(0.5))
+
+    # model.add(K.layers.Dense(256, activation=('relu')))
+    model.add(K.layers.Dense(256))
+    model.add(K.layers.BatchNormalization())
+    model.add(K.layers.Activation('relu'))
+    model.add(K.layers.Dropout(0.5))
+
     # model.add(K.layers.Dense(128, activation=('relu')))
+    model.add(K.layers.Dense(128))
+    model.add(K.layers.BatchNormalization())
+    model.add(K.layers.Activation('relu'))
+    model.add(K.layers.Dropout(0.35))
+
+    # model.add(K.layers.Dense(64, activation=('relu')))
+    model.add(K.layers.Dense(64))
+    model.add(K.layers.BatchNormalization())
+    model.add(K.layers.Activation('relu'))
     model.add(K.layers.Dropout(0.2))
+
     model.add(K.layers.Dense(10, activation=('softmax')))
     callback = []
 
     learn_rate_reduce = K.callbacks.ReduceLROnPlateau(monitor='val_accuracy',
-                                        factor=.11,
+                                        factor=.01,
                                         patience=2,
                                         min_lr=1e-5)
     callback.append(learn_rate_reduce)
 
-
-    callback.append(K.callbacks.ModelCheckpoint('cifar10.h5',
+    model_checkpoint = K.callbacks.ModelCheckpoint('cifar10.h5',
                                                 monitor='val_accuracy',
                                                 save_best_only=True,
-                                                mode='max'))
+                                                mode='max')
+    callback.append(model_checkpoint)
+
+    early_stopping = K.callbacks.EarlyStopping(monitor='val_accuracy',
+                                               mode='max',
+                                               patience=5)
+    callback.append(early_stopping)
 
     model.compile(optimizer='adam',
                   loss='categorical_crossentropy',
