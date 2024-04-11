@@ -154,7 +154,7 @@ class Yolo:
         box_scores = np.array(box_scores)
 
         return filtered_boxes, box_classes, box_scores
-    
+
     def _iou(self, boxes, thresh, scores):
         """
         Calculates the Intersection over Union (IoU) of two bounding boxes
@@ -243,7 +243,7 @@ class Yolo:
 
         # Process each class separately
         for c in set(box_classes):
-        # Find indices of all boxes belonging to the current class
+            # Find indices of all boxes belonging to the current class
             idx = np.where(box_classes == c)
 
             # Extract boxes, scores, and classes for the current class
@@ -263,5 +263,3 @@ class Yolo:
         predicted_box_scores = np.array(predicted_box_scores)
 
         return box_predictions, predicted_box_classes, predicted_box_scores
-    
-    
