@@ -5,6 +5,7 @@ import tensorflow.keras as K
 import numpy as np
 import cv2
 import glob
+import os
 
 
 class Yolo:
@@ -325,7 +326,7 @@ class Yolo:
             pimages.append(pimage)
 
         return np.array(pimages), np.array(image_shapes)
-    
+
     def show_boxes(self, image, boxes, box_classes, box_scores, file_name):
         """
         Displays the image with all boundary boxes, class names, and box scores
@@ -360,7 +361,9 @@ class Yolo:
         key = cv2.waitKey(0)
 
         if key == ord('s'):
+            if not os.path.exists('./detections/'):
+                os.makedirs('./detections/')
+            os.chdir('./detections/')
             cv2.imwrite(file_name, image)
 
         cv2.destroyAllWindows()
-        return key
