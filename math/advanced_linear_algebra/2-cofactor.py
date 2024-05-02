@@ -151,5 +151,7 @@ def cofactor(matrix):
             new_row.append((multiplier * matrix[row][column]))
             multiplier *= -1
         cofactor_matrix.append(new_row)
+        if len(matrix) % 2 == 0:
+            multiplier *= -1
 
     return minor(cofactor_matrix)
