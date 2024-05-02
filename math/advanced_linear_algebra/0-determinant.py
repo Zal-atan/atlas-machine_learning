@@ -51,19 +51,19 @@ def determinant(matrix):
     Returns:
     The determinant of the matrix
     """
-
     if not isinstance(matrix, list) or len(matrix) == 0:
         raise TypeError("matrix must be a list of lists")
 
     if matrix == [[]]:
         return 1
-    if len(matrix) == 1 and len(matrix[0]) == 1:
-        return matrix[0][0]
 
     for mat in matrix:
         if not isinstance(mat, list):
             raise TypeError("matrix must be a list of lists")
         if len(mat) != len(matrix[0]) or len(mat) != len(matrix):
             raise ValueError("matrix must be a square matrix")
+
+    if len(matrix) == 1 and len(matrix[0]) == 1:
+        return matrix[0][0]
 
     return multi_determinate(matrix)
