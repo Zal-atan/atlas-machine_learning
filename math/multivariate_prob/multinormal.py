@@ -41,10 +41,10 @@ class MultiNormal:
 
         d = self.cov.shape[0]
         if len(x.shape) != 2:
-            raise ValueError(f"x must have the shape ({d}, 1)")
+            raise ValueError("x must have the shape ({}, 1)".format(d))
 
         if x.shape[0] != d or x.shape[1] != 1:
-            raise ValueError(f"x must have the shape ({d}, 1)")
+            raise ValueError("x must have the shape ({d}, 1)".format(d))
 
         det = np.linalg.det(self.cov)
         inv = np.linalg.inv(self.cov)
