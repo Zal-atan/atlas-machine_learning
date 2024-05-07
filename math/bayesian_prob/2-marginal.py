@@ -1,12 +1,11 @@
 #!/usr/bin/env python3
-""" This module defines the intersection function"""
+""" This module defines the marginal function"""
 import numpy as np
 
 
-def intersection(x, n, P, Pr):
+def marginal(x, n, P, Pr):
     """
-    Calculates the the intersection of obtaining this data with the
-    various hypothetical probabilities:
+    Calculates the marginal probability of obtaining the data
 
     Inputs:
     x - number of patients that develop severe side effects
@@ -16,14 +15,13 @@ def intersection(x, n, P, Pr):
     Pr - 1D numpy.ndarray containing the prior beliefs of P
 
     Return:
-    1D numpy.ndarray containing the likelihood of obtaining the data, x and n,
-        for each probability in P, respectively
+    the marginal probability of obtaining x and n
     """
     if not isinstance(n, int) or n < 1:
         raise ValueError("n must be a positive integer")
     if not isinstance(x, int) or x < 0:
-        raise ValueError("x must be an integer that is greater than or equal\
-                          to 0")
+        raise ValueError(
+            "x must be an integer that is greater than or equal to 0")
     if x > n:
         raise ValueError("x cannot be greater than n")
     if not isinstance(P, np.ndarray) or len(P.shape) != 1:
@@ -43,5 +41,6 @@ def intersection(x, n, P, Pr):
     fact = numer / denom
     likelihood = fact * (np.power(P, x)) * (np.power((1 - P), (n - x)))
     intersection = likelihood * Pr
+    inter = np.sum(intersection)
 
-    return intersection
+    return inter
