@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
-""" This module defines the marginal function"""
+""" This module defines the posterior function"""
 import numpy as np
 
 
-def marginal(x, n, P, Pr):
+def posterior(x, n, P, Pr):
     """
-    Calculates the marginal probability of obtaining the data
+    Calculates the posterior probability for the various hypothetical
+    probabilities of developing severe side effects given the data
 
     Inputs:
     x - number of patients that develop severe side effects
@@ -15,7 +16,7 @@ def marginal(x, n, P, Pr):
     Pr - 1D numpy.ndarray containing the prior beliefs of P
 
     Return:
-    the marginal probability of obtaining x and n
+    posterior probability of each probability in P given x and n, respectively
     """
     if not isinstance(n, int) or n < 1:
         raise ValueError("n must be a positive integer")
@@ -43,4 +44,4 @@ def marginal(x, n, P, Pr):
     intersection = likelihood * Pr
     marg = np.sum(intersection)
 
-    return marg
+    return intersection / marg
