@@ -28,8 +28,7 @@ def pca(X, var=0.95):
     # Find dimensions for mainting variance
     dimens = np.argwhere(cumu_var >= var)[0, 0]
 
-    W = Vt.T
-
+    # Select Correct Eigenvectors to form weights
     W = W[:, :dimens + 1]
 
     return W
