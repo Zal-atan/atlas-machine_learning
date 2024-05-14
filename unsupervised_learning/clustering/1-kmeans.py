@@ -91,7 +91,7 @@ def kmeans(X, k, iterations=1000):
         clss = np.argmin(np.linalg.norm(
             (X - means[:, None, :]), axis=2).T, axis=1)
 
-        # Check for convergence (if centroids do not change)
+        # Check convergence (if centroids do not change)
         if np.array_equal(centroids, means):
             break
 
