@@ -12,7 +12,7 @@ def variance(X, C):
     used for K-means clustering
         n - number of data points
         d - number of dimensions for each data point
-    C - numpy.ndarray of shape (k, d) containing the centroid means 
+    C - numpy.ndarray of shape (k, d) containing the centroid means
     for each cluster
 
     Returns:
@@ -23,7 +23,7 @@ def variance(X, C):
         return None
     if not isinstance(C, np.ndarray) or len(C.shape) != 2:
         return None
-    
+
     n, d1 = X.shape
     k, d2 = C.shape
 
