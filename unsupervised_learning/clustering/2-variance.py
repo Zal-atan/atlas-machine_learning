@@ -30,13 +30,13 @@ def variance(X, C):
     if d1 != d2:
         return None
 
-    # Extend centroids to match the shape of X for distance calculation
+    # Extend centroids to match distance calculation to the shape of X
     extended_Cents = C[:, np.newaxis]
 
     # Calculate distances from each point to each centroid
     distances = np.sqrt(((X - extended_Cents) ** 2).sum(axis=2))
 
-    # Find the minimum distance for each point to any centroid
+    # Find the minimum distance to each point to any centroid
     min_distance = np.min(distances, axis=0)
 
     variance = np.sum(min_distance ** 2)
