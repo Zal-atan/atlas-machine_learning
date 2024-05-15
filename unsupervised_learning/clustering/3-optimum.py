@@ -52,7 +52,7 @@ def optimum_k(X, kmin=1, kmax=None, iterations=1000):
             C, clss = kmeans(X, k, iterations)
             results.append((C, clss))
 
-            # Calculate variance for current cluster size
+            # Calculate variance in current cluster size
             vars.append(variance(X, C))
 
         # Calculate the difference in variance from the smallest cluster size
