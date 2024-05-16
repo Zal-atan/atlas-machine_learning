@@ -42,7 +42,7 @@ def expectation(X, pi, m, S):
     gauss_comps = np.zeros((k, n))
     PDF = np.zeros((k, n))
 
-    # Calculate the PDF values for each cluster and data point
+    # Calculate the PDF values each cluster and data point
     for i in range(k):
         try:
             PDF[i] = pi[i] * pdf(X, m[i], S[i])
