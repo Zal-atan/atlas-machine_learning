@@ -36,7 +36,7 @@ def initialize(X, k):
     # Centroid means using kmeans
     m, _ = kmeans(X, k)
 
-    # Covariance matrices for each cluster, initialized as identity matices
+    # Covariance matrices in each cluster, initialized as identity matices
     S = np.zeros((k, d, d))
     S[:] = np.eye(d)
 
