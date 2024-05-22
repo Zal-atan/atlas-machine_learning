@@ -43,7 +43,7 @@ def BIC(X, kmin=1, kmax=None, iterations=1000, tol=1e-5, verbose=False):
     if not isinstance(verbose, bool):
         return None, None, None, None
 
-    # Initialize lists for results
+    # Initialize lists of results
     best_k = []
     best_result = []
     log_likeli = []
