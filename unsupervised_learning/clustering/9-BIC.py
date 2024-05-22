@@ -59,7 +59,7 @@ def BIC(X, kmin=1, kmax=None, iterations=1000, tol=1e-5, verbose=False):
         best_result.append((pi, m, S))
         log_likeli.append(log_l)
 
-        # Calculate parameters for BIC
+        # Calculate parameters in BIC
         cov_params = k * d * (d + 1) / 2.
         mean_params = k * d
         p = cov_params + mean_params + k - 1
