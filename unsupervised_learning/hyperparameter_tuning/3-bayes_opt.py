@@ -3,6 +3,7 @@
 import numpy as np
 GP = __import__('2-gp').GaussianProcess
 
+
 class BayesianOptimization():
     """
     Performs Bayesian optimization on a noiseless 1D Gaussian process
@@ -40,7 +41,7 @@ class BayesianOptimization():
         minimize: a bool for minimization versus maximization
         """
         self.f = f
-        self.gp = GP(X_init, Y_init, l , sigma_f)
+        self.gp = GP(X_init, Y_init, l, sigma_f)
         start, stop = bounds
         X_s = np.linspace(start, stop, ac_samples)
         self.X_s = (np.sort(X_s)).reshape(-1, 1)
