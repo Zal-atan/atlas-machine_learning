@@ -42,8 +42,9 @@ def autoencoder(input_dims, filters, latent_dims):
                                          activation='relu')(decode)
             decode = keras.layers.UpSampling2D((2, 2))(decode)
         else:
-            decode = keras.layers.Conv2D(
-                decode_layers[layer], (3, 3), padding='valid', activation='relu')(decode)
+            decode = keras.layers.Conv2D(decode_layers[layer],
+                                         (3, 3), padding='valid',
+                                         activation='relu')(decode)
             decode = keras.layers.UpSampling2D((2, 2))(decode)
     decode = keras.layers.Conv2D(input_dims[2], (3, 3), activation='sigmoid',
                                  padding='same')(decode)
