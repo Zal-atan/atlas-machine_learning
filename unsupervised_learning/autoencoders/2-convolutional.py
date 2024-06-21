@@ -5,7 +5,7 @@ import tensorflow.keras as keras
 
 def autoencoder(input_dims, filters, latent_dims):
     """
-    Creates a sparse autoencoder
+    Creates a convolutional autoencoder
 
     Inputs:
     input_dims: integer containing the dimensions of the model input
