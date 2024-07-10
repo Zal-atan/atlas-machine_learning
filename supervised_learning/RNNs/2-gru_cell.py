@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-""" Module creating the DRU cell class"""
+""" Module creating the GRU cell class"""
 import numpy as np
 
 
