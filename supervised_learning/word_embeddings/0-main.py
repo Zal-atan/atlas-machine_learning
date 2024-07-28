@@ -10,6 +10,7 @@ sentences = ["Holberton school is Awesome!",
              "The cake was not very good",
              "No one said that the cake was not very good",
              "Life is beautiful"]
-E, F = bag_of_words(sentences)
+vocab = ["children", "is", "awesome", "cake", "are", "our", "future"]
+E, F = bag_of_words(sentences, vocab)
 print(E)
 print(F)
