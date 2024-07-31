@@ -14,15 +14,14 @@ def cumulative_bleu(references, sentence, n):
         Each reference translation is a list of the words in the translation\\
     sentence: list containing the model proposed sentence\\
     n: size of the n-gram to use for evaluation\\
-    
+
     Returns:\\
     the cumulative n-gram BLEU score
     """
     n_gram_scores = []
-    
+
     # Calculate the BLEU score for each n-gram from 1 to n
     for i in range(1, n + 1):
         n_gram_scores.append(ngram_bleu(references, sentence, i))
-    
-    return gmean(n_gram_scores)
 
+    return gmean(n_gram_scores)
