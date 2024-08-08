@@ -18,16 +18,16 @@ class Dataset():
 
         # Load dataset and metadata from TF Datasets
         examples, meta = tfds.load('ted_hrlr_translate/pt_to_en',
-                                with_info=True,
-                                as_supervised=True)
+                                   with_info=True,
+                                   as_supervised=True)
 
         self.data_train, self.data_valid = examples['train'], \
             examples['validation']
-        
+
         # Tokenize data
         self.tokenizer_pt, self.tokenizer_en = self.tokenize_dataset(
             self.data_train)
-        
+
         # Train, filter for length, cache training set
         self.data_train = self.data_train.map(self.tf_encode)
         self.data_train = self.data_train.filter(filter_max_length)
@@ -42,7 +42,7 @@ class Dataset():
         self.data_train = self.data_train.padded_batch(
             batch_size, padded_shapes=shape_pad)
 
-        # prefetch dataset 
+        # prefetch dataset
         aux = tf.data.experimental.AUTOTUNE
         self.data_train = self.data_train.prefetch(aux)
 
@@ -51,8 +51,6 @@ class Dataset():
         self.data_valid = self.data_valid.filter(filter_max_length)
         self.data_valid = self.data_valid.padded_batch(
             batch_size, padded_shapes=shape_pad)
-
-
 
     def tokenize_dataset(self, data):
         """
@@ -77,7 +75,7 @@ class Dataset():
                 (en.numpy() for _, en in data), target_vocab_size=2**15)
 
         return tokenizer_pt, tokenizer_en
-    
+
     def encode(self, pt, en):
         """
         Encodes a translation into tokens
@@ -110,10 +108,9 @@ class Dataset():
         pt: tf.Tensor containing the Portuguese sentence\\
         en: tf.Tensor containing the corresponding English sentence
         """
-        wrap_pt, wrap_en = tf.py_function(self.encode, [pt,en],
+        wrap_pt, wrap_en = tf.py_function(self.encode, [pt, en],
                                           [tf.int64, tf.int64])
         wrap_pt.set_shape([None])
         wrap_en.set_shape([None])
 
         return wrap_pt, wrap_en
-

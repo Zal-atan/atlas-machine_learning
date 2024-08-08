@@ -45,7 +45,7 @@ class Dataset():
                 (en.numpy() for _, en in data), target_vocab_size=2**15)
 
         return tokenizer_pt, tokenizer_en
-    
+
     def encode(self, pt, en):
         """
         Encodes a translation into tokens
@@ -78,7 +78,7 @@ class Dataset():
         pt: tf.Tensor containing the Portuguese sentence\\
         en: tf.Tensor containing the corresponding English sentence
         """
-        wrap_pt, wrap_en = tf.py_function(self.encode, [pt,en],
+        wrap_pt, wrap_en = tf.py_function(self.encode, [pt, en],
                                           [tf.int64, tf.int64])
         wrap_pt.set_shape([None])
         wrap_en.set_shape([None])

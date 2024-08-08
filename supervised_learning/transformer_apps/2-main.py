@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
-Dataset = __import__('2-dataset').Dataset
 import tensorflow as tf
+Dataset = __import__('2-dataset').Dataset
 
 data = Dataset()
 print('got here')

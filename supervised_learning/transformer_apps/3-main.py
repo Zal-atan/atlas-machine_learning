@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
-Dataset = __import__('3-dataset').Dataset
 import tensorflow as tf
+Dataset = __import__('3-dataset').Dataset
 
 tf.compat.v1.set_random_seed(0)
 data = Dataset(32, 40)
