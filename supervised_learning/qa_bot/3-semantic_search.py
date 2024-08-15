@@ -5,6 +5,7 @@ import tensorflow as tf
 import tensorflow_hub as hub
 import os
 import numpy as np
+from sentence_transformers import SentenceTransformer
 
 
 def semantic_search(corpus_path, sentence):
@@ -21,8 +22,10 @@ def semantic_search(corpus_path, sentence):
     """
 
     # Load Universal Sentence Encoder Model
-    model = hub.load(
-        "https://tfhub.dev/google/universal-sentence-encoder-large/5")
+    # model = hub.load(
+    #     "https://tfhub.dev/google/universal-sentence-encoder-large/5")
+    model = model = SentenceTransformer(
+        "Sakil/sentence_similarity_semantic_search")
 
     # Load the corpus docs into a list which will become array
     files = []
@@ -33,8 +36,8 @@ def semantic_search(corpus_path, sentence):
             files.append(f.read())
 
     # Compute embeddings for all the corpus documents and inital sentence
-    corp_embed = model(files)
-    sent_embed = model([sentence])[0]
+    corp_embed = model.encode(files)
+    sent_embed = model.encode([sentence])[0]
 
     # Normalize embeddings to unit vectors
     corp_embed = tf.nn.l2_normalize(corp_embed, axis=1)
