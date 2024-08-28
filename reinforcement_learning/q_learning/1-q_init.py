@@ -14,7 +14,7 @@ def q_init(env):
     Returns:
     the Q-table as a numpy.ndarray of zeros
     """
-    
+
     action = env.action_space.n
     obv_space = env.observation_space.n
 

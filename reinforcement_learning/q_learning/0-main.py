@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
-load_frozen_lake = __import__('0-load_env').load_frozen_lake
 import numpy as np
+load_frozen_lake = __import__('0-load_env').load_frozen_lake
 
 np.random.seed(0)
 env = load_frozen_lake()
