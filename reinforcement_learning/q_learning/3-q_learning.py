@@ -32,7 +32,7 @@ def train(env, Q, episodes=5000, max_steps=100, alpha=0.1, gamma=0.99,
 
     for epi in range(episodes):
         # Reset the environment and retrieve the initial state
-        state = env.reset()[0]
+        state = env.reset()
         terminate = False
         total_rewards = 0
 
@@ -45,10 +45,14 @@ def train(env, Q, episodes=5000, max_steps=100, alpha=0.1, gamma=0.99,
             # print(result)       # See what is being returned
 
             # Perform the action in the environment and observe the outcome
-            new_state, reward, terminate, _, _ = env.step(action)
+            new_state, reward, terminate, _ = env.step(action)
 
             # print(state)
             # print(action)
+
+            # If the agent falls into a hole, set the total rewards to -1
+            if terminate and reward == 0:
+                reward = -1
 
             # Update the Q-value for the state-action pair
             Q[state, action] = Q[state, action] + alpha * \
@@ -58,9 +62,6 @@ def train(env, Q, episodes=5000, max_steps=100, alpha=0.1, gamma=0.99,
 
             # Check if the episode has terminated
             if terminate is True:
-                # If the agent falls into a hole, set the total rewards to -1
-                if reward == 0.0:
-                    total_rewards = -1
                 total_rewards += reward
                 break
 

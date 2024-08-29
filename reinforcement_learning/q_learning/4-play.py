@@ -18,20 +18,20 @@ def play(env, Q, max_steps=100):
     """
 
     # Reset the environment and get the initial state
-    state = env.reset()[0]
+    state = env.reset()
     env.render()  # Render the initial state
     terminate = False
 
-    action_map = {0: 'Left', 1: 'Down', 2: 'Right', 3: 'Up'}
+    # action_map = {0: 'Left', 1: 'Down', 2: 'Right', 3: 'Up'}
 
     # Loop over the number of maximum steps
     for step in range(max_steps):
         # Choose the action with the highest Q-value for the current state
         action = np.argmax(Q[state, :])
-        new_state, reward, terminate, _, _ = env.step(action)
+        new_state, reward, terminate, _ = env.step(action)
 
         # Print the action taken (e.g., Down, Right)
-        print(f"  ({action_map[action]})")
+        # print(f"  ({action_map[action]})")
 
         # Render the environment
         env.render()
