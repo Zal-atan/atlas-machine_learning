@@ -84,7 +84,7 @@ if __name__ == '__main__':
     # When nb_steps_warmup < nb_steps, it crashes the program at that number
     dqn = DQNAgent(model=model, nb_actions=number_actions, policy=policy,
                    memory=memory, processor=processor,
-                   nb_steps_warmup=500000, gamma=.99,
+                   nb_steps_warmup=5000000, gamma=.99,
                    target_model_update=10000,
                    train_interval=4,
                    delta_clip=1.)
@@ -93,7 +93,7 @@ if __name__ == '__main__':
     dqn.compile(Adam(lr=.00025), metrics=['mae'])
     # Train model
     dqn.fit(env,
-            nb_steps=50000,
+            nb_steps=1800000,
             log_interval=10000,
             visualize=False,
             verbose=2)

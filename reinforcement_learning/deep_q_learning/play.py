@@ -45,4 +45,4 @@ if __name__ == '__main__':
 
     # Try to evaluate Agent
     # I have tried verbose = True, and not pu
-    dqn.test(env, nb_episodes=100)
+    dqn.test(env, nb_episodes=10, visualize=False)
