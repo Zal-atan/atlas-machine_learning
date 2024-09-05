@@ -74,7 +74,7 @@ if __name__ == '__main__':
     # Put together features for DQNAgent
     model = build_model(number_actions)
     model.summary()
-    memory = SequentialMemory(limit=1000000, window_length=LENG_WINDOW)
+    memory = SequentialMemory(limit=10000, window_length=LENG_WINDOW)
     processor = AtariProcessor()
 
     policy = LinearAnnealedPolicy(EpsGreedyQPolicy(), attr='eps',
@@ -91,12 +91,14 @@ if __name__ == '__main__':
 
     # Compile model
     dqn.compile(Adam(lr=.00025), metrics=['mae'])
+
+    dqn.load_weights('policy.h5')
     # Train model
     dqn.fit(env,
-            nb_steps=1800000,
+            nb_steps=3500000,
             log_interval=10000,
             visualize=False,
             verbose=2)
 
     # Save weights
-    dqn.save_weights('policy.h5', overwrite=True)
+    dqn.save_weights('policy1.h5', overwrite=True)

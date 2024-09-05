@@ -2,9 +2,13 @@
 from PIL import Image
 import gym
 
+import gym.wrappers
+
 from rl.agents import DQNAgent
 from rl.memory import SequentialMemory
-from rl. policy import GreedyQPolicy
+from rl. policy import GreedyQPolicy, LinearAnnealedPolicy, EpsGreedyQPolicy
+
+from keras.optimizers import Adam
 
 import tensorflow.keras as K
 
@@ -25,24 +29,43 @@ AtariProcessor = __import__('train').AtariProcessor
 
 if __name__ == '__main__':
 
-    # Create environment
-    env = gym.make("Breakout-v4", render_mode='human')
+    # Create the game environment
+    env = gym.make("Breakout-v4", render_mode="human")
     env.reset()
-    num_actions = env.action_space.n
+    number_actions = env.action_space.n
+    window = 4
 
-    # Define parts of DQNAgent
-    model = build_model(num_actions)  # deep conv net
-    memory = SequentialMemory(limit=1000000, window_length=LEN_WINDOW)
+    # Put together features for DQNAgent
+    model = build_model(number_actions)
+    model.summary()
+    memory = SequentialMemory(limit=10000, window_length=LEN_WINDOW)
     processor = AtariProcessor()
-    policy = GreedyQPolicy()
-    # Put together DQN
-    dqn = DQNAgent(model=model, nb_actions=num_actions,
-                   processor=processor, memory=memory, policy=policy)
-    dqn.compile(K.optimizers.Adam(lr=.00025), metrics=['mae'])
+
+    # policy = GreedyQPolicy()
+    policy = LinearAnnealedPolicy(EpsGreedyQPolicy(), attr='eps',
+                                  value_max=1., value_min=.1, value_test=.05,
+                                  nb_steps=1000000)
+
+    # When nb_steps_warmup < nb_steps, it crashes the program at that number
+    dqn = DQNAgent(model=model, nb_actions=number_actions, policy=policy,
+                   memory=memory, processor=processor,
+                   nb_steps_warmup=5000000, gamma=.99,
+                   target_model_update=10000,
+                   train_interval=4,
+                   delta_clip=1.)
+
+    # Compile model
+    dqn.compile(Adam(lr=.00025), metrics=['mae'])
 
     # Load Weights
     dqn.load_weights('policy.h5')
 
+    dqn.fit(env,
+            nb_steps=10000,
+            log_interval=10000,
+            visualize=False,
+            verbose=2)
+
     # Try to evaluate Agent
     # I have tried verbose = True, and not pu
-    dqn.test(env, nb_episodes=10, visualize=False)
+    # dqn.test(env, nb_episodes=1000, visualize=False)
