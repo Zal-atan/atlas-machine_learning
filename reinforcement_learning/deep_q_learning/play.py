@@ -24,7 +24,7 @@ INPUT_SHAPE = (84, 84)
 LEN_WINDOW = 4
 
 build_model = __import__('train').build_model
-AtariProcessor = __import__('train').AtariProcessor
+PreProcessor = __import__('train').PreProcessor
 
 
 if __name__ == '__main__':
@@ -39,8 +39,9 @@ if __name__ == '__main__':
     model = build_model(number_actions)
     model.summary()
     memory = SequentialMemory(limit=10000, window_length=LEN_WINDOW)
-    processor = AtariProcessor()
+    processor = PreProcessor()
 
+    # Need to use GreedyQPolicy() for task, but it does not work, using other
     # policy = GreedyQPolicy()
     policy = LinearAnnealedPolicy(EpsGreedyQPolicy(), attr='eps',
                                   value_max=1., value_min=.1, value_test=.05,
@@ -60,6 +61,7 @@ if __name__ == '__main__':
     # Load Weights
     dqn.load_weights('policy.h5')
 
+    # Have to use fit() to show simulation, as dqn.test() will not work
     dqn.fit(env,
             nb_steps=10000,
             log_interval=10000,
@@ -67,5 +69,5 @@ if __name__ == '__main__':
             verbose=2)
 
     # Try to evaluate Agent
-    # I have tried verbose = True, and not pu
+    # dqn.test does not seem to work not matter what I try.
     # dqn.test(env, nb_episodes=1000, visualize=False)

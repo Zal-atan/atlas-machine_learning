@@ -20,11 +20,14 @@ tf.compat.v1.enable_eager_execution()
 INPUT_SHAPE = (84, 84)
 LENG_WINDOW = 4
 
-class AtariProcessor(Processor):
+class PreProcessor(Processor):
     """Takes the shape of the the Atari Game and configures it to a 
     Grayscale 84 x 84 pixel window. Makes the training much faster"""
     def process_observation(self, observation):
-        # (height, width, channel)
+        """
+        Converts the game's RGB observation into a grayscale image resized to 84x84 pixels.
+        This reduces the input size, speeding up training.
+        """
         assert observation.ndim == 3
         # resize image
         img = Image.fromarray(observation)
@@ -34,10 +37,17 @@ class AtariProcessor(Processor):
         return processed_observation.astype('uint8')
 
     def process_state_batch(self, batch):
+        """
+        Normalizes the batch of game frames by scaling pixel values to a range of [0, 1].
+        This improves neural network performance during training.
+        """
         processed_batch = batch.astype('float32') / 255.
         return processed_batch
 
     def process_reward(self, reward):
+        """
+        Clips the reward to the range [-1, 1] to stabilize training by reducing the effect of large rewards.
+        """
         return np.clip(reward, -1., 1.)
 
 
@@ -47,6 +57,8 @@ def build_model(number_actions):
     """
     input_shape = (LENG_WINDOW,) + INPUT_SHAPE
     train_model = Sequential()
+
+    # Build Deep CNN 
     train_model.add(Permute((2, 3, 1), input_shape=input_shape))
     train_model.add(Convolution2D(32, (8, 8), strides=(4, 4)))
     train_model.add(Activation('relu'))
@@ -75,7 +87,7 @@ if __name__ == '__main__':
     model = build_model(number_actions)
     model.summary()
     memory = SequentialMemory(limit=10000, window_length=LENG_WINDOW)
-    processor = AtariProcessor()
+    processor = PreProcessor()
 
     policy = LinearAnnealedPolicy(EpsGreedyQPolicy(), attr='eps',
                                   value_max=1., value_min=.1, value_test=.05,
@@ -92,8 +104,10 @@ if __name__ == '__main__':
     # Compile model
     dqn.compile(Adam(lr=.00025), metrics=['mae'])
 
-    dqn.load_weights('policy.h5')
-    # Train model
+    # If want to keep training from previous training
+    # dqn.load_weights('policy.h5')
+
+    # Train model - if visualize=True, deprecation error
     dqn.fit(env,
             nb_steps=3500000,
             log_interval=10000,
