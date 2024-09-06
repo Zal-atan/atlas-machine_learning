@@ -5,7 +5,7 @@ import numpy as np
 import gym
 
 from rl.agents import DQNAgent
-from rl.policy import LinearAnnealedPolicy,EpsGreedyQPolicy
+from rl.policy import LinearAnnealedPolicy, EpsGreedyQPolicy
 from rl.memory import SequentialMemory
 from rl.core import Processor
 
@@ -20,9 +20,11 @@ tf.compat.v1.enable_eager_execution()
 INPUT_SHAPE = (84, 84)
 LENG_WINDOW = 4
 
+
 class PreProcessor(Processor):
-    """Takes the shape of the the Atari Game and configures it to a 
+    """Takes the shape of the the Atari Game and configures it to a
     Grayscale 84 x 84 pixel window. Makes the training much faster"""
+
     def process_observation(self, observation):
         """
         Converts the game's RGB observation into a grayscale image resized to 84x84 pixels.
@@ -58,7 +60,7 @@ def build_model(number_actions):
     input_shape = (LENG_WINDOW,) + INPUT_SHAPE
     train_model = Sequential()
 
-    # Build Deep CNN 
+    # Build Deep CNN
     train_model.add(Permute((2, 3, 1), input_shape=input_shape))
     train_model.add(Convolution2D(32, (8, 8), strides=(4, 4)))
     train_model.add(Activation('relu'))
