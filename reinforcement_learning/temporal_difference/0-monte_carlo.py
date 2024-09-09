@@ -25,34 +25,38 @@ def monte_carlo(env, V, policy, episodes=5000, max_steps=100, alpha=0.1,
     """
     
     # Run through each episode
-    for episode_num in range(0, episodes):
-        cumulative_reward = 0
-        state = env.reset()  # Reset the environment for each new episode
-        episode_steps = []  # To store state-reward pairs
+    for ep in range(0, episodes):
+        rewards_sum = 0
+        # Reset the environment for each new episode
+        state = env.reset()
+          # To store state-reward pairs
+        episode_steps = []
 
         # Simulate an episode
         for step_num in range(0, max_steps):
-            action = policy(state)  # Get action from the policy
-            next_state, reward, done, _ = env.step(action)  # Take action in environment
-            episode_steps.append([state, reward])  # Store the state and reward
+            # Get action, step environment through action, store state and rew
+            action = policy(state)
+            next_state, reward, done, _ = env.step(action)
+            episode_steps.append([state, reward])
 
             # If the episode is done, exit loop
             if done:
                 break
 
-            state = next_state  # Update the state for the next step
+            state = next_state
 
         episode_steps = np.array(episode_steps, dtype=int)
 
         # Update value estimates using the Monte Carlo method (backward update)
         for t in reversed(range(0, len(episode_steps))):
-            state, reward = episode_steps[t]  # Get the state and reward at time t
-            cumulative_reward = gamma * cumulative_reward + reward  # Discounted sum of rewards
+            # Get the state and reward at time t
+            state, reward = episode_steps[t]
+            # update discounted rewards sum
+            rewards_sum = gamma * rewards_sum + reward
 
-            # Update value estimate only if this state has not been seen earlier in the episode
-            if state not in [episode_steps[i][0] for i in range(t)]:
+            # Update value estimate if state not seen earlier in the episode
+            if state not in episode_steps[:ep, 0]:
                 # Update the value estimate using the learning rate
-                V[state] = V[state] + alpha * (cumulative_reward - V[state])
+                V[state] = V[state] + alpha * (rewards_sum - V[state])
 
     return V
-
