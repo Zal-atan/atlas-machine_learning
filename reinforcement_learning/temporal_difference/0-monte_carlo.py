@@ -5,7 +5,7 @@ import numpy as np
 import gym
 
 
-def monte_carlo(env, V, policy, episodes=5000, max_steps=100, alpha=0.1, 
+def monte_carlo(env, V, policy, episodes=5000, max_steps=100, alpha=0.1,
                 gamma=0.99):
     """
     Performs the Monte Carlo Algorithm
@@ -13,7 +13,7 @@ def monte_carlo(env, V, policy, episodes=5000, max_steps=100, alpha=0.1,
     Inputs:
     env: openAI environment instance\\
     V: numpy.ndarray of shape (s,) containing the value estimate\\
-    policy: function that takes in a state and returns the 
+    policy: function that takes in a state and returns the
         next action to take\\
     episodes: total number of episodes to train over\\
     max_steps: maximum number of steps per episode\\
@@ -23,13 +23,13 @@ def monte_carlo(env, V, policy, episodes=5000, max_steps=100, alpha=0.1,
     Return:\\
     V: the updated value estimate
     """
-    
+
     # Run through each episode
     for ep in range(0, episodes):
         rewards_sum = 0
         # Reset the environment for each new episode
         state = env.reset()
-          # To store state-reward pairs
+        # To store state-reward pairs
         episode_steps = []
 
         # Simulate an episode
