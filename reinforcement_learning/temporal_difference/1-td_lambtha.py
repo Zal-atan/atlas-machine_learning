@@ -24,3 +24,41 @@ def td_lambtha(env, V, policy, lambtha, episodes=5000, max_steps=100,
     Returns:\\
     V: the updated value estimate
     """
+
+    # Create empty numpy array of zeros in shape of value estimate
+    elig_trace = np.zeros_like(V)
+    # env.seed(0)
+
+    # Loop through episodes
+    for ep in range(0, episodes):
+
+        # Reset the environment for each new episode
+        state = env.reset()
+
+        # Loop through steps until done or max steps
+        for step in range(0, max_steps):
+            # Get action
+            action = policy(state)
+            next_state, reward, done, _ = env.step(action)
+
+            # Temporal Difference Error
+            # δ = r + γV(s') - V(s)
+
+            delta = reward + (gamma * V[next_state]) - V[state]
+
+            # Update eligibility trace and move to the next state
+            elig_trace[state] += 1
+            elig_trace = elig_trace * (gamma * lambtha)
+
+            # Update Value Estimate
+            V += delta * alpha * elig_trace
+            # Getting worse results with next one
+            # V[state] += delta * alpha * elig_trace[state]
+
+            if done:
+                break
+
+            # Move state forward
+            state = next_state
+
+    return V
