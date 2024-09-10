@@ -47,6 +47,7 @@ def td_lambtha(env, V, policy, lambtha, episodes=5000, max_steps=100,
             delta = reward + (gamma * V[next_state]) - V[state]
 
             # Update eligibility trace and move to the next state
+            # Getting closer reults by switching state first
             elig_trace[state] += 1
             elig_trace = elig_trace * (gamma * lambtha)
 
