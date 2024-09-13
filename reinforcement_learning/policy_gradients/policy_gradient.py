@@ -16,13 +16,13 @@ def policy(matrix, weight):
     Returns:\\
     Policy
     """
-    dot_product = np.dot(matrix, weight)
 
-    # Numerical stability fix for softmax (subtract max to prevent overflow)
-    dot_product -= np.max(dot_product)
+    # Softmax using dot products and exponent of dot product
+    dot_product = matrix.dot(weight)
+    exponent = np.exp(dot_product)
 
-    exp = np.exp(dot_product)
-    return exp / np.sum(exp, axis=1, keepdims=True)
+    # Return the policy
+    return exponent / np.sum(exponent)
 
 
 def policy_gradient(state, weight):
@@ -38,19 +38,16 @@ def policy_gradient(state, weight):
     action, gradient (in this order)
     """
 
-    # monte_carlo = policy(state, weight)
-    # action = np.random.choice(len(monte_carlo[0]), p=monte_carlo[0])
-
     monte_carlo = policy(state, weight)
-
-    # Sample an action based on the softmax policy
     action = np.random.choice(len(monte_carlo[0]), p=monte_carlo[0])
 
-    # Compute the gradient of the softmax policy
-    d_softmax = monte_carlo.copy()
-    d_softmax[0, action] -= 1  # Subtract 1 for the selected action's gradient
+    # Need to reshape the policy to build softmax, so we do that here
+    reshape = monte_carlo.reshape(-1, 1)
 
-    # Compute the gradient of the policy with respect to the weight matrix
-    grad = np.dot(state.T, d_softmax)
+    softmax = (np.diagflat(reshape) - np.dot(reshape, reshape.T))[action, :]
+
+    log_derivative = softmax / monte_carlo[0, action]
+
+    grad = state.T.dot(log_derivative[None, :])
 
     return action, grad
