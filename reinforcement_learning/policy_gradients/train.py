@@ -5,9 +5,11 @@ import numpy as np
 import matplotlib as plt
 import gym
 from policy_gradient import policy_gradient
+import os
+import imageio
 
 
-def train(env, nb_episodes, alpha=0.000007, gamma=0.98):
+def train(env, nb_episodes, alpha=0.000007, gamma=0.95, show_result=False):
     """
     Implements a full training
 
@@ -20,6 +22,9 @@ def train(env, nb_episodes, alpha=0.000007, gamma=0.98):
     Returns:
     all values of the score (sum of all rewards during one episode loop)
     """
+    save_photos = True
+    saved_episodes = [0, 1000, 2500, 5000, 7500, 10000]
+
     # Get the number of observations and actions from the environment
     observations = env.observation_space.shape[0]
     actions = env.action_space.n
@@ -36,11 +41,31 @@ def train(env, nb_episodes, alpha=0.000007, gamma=0.98):
         # Store gradients and rewards, initialize ep score
         gradients = []
         rewards = []
+        frames = []
         episode_score = 0
 
         done = False
 
         while not done:
+
+            this_episode = episode in saved_episodes
+            # Render but not save
+            if show_result and not save_photos and this_episode:
+                env.render('human')
+
+            if show_result and save_photos and this_episode:
+                frame_arr = env.render(mode='rgb_array')
+                frames.append(frame_arr)
+            # Convert that frame array to a .gif and save locally
+            path = "episode_gifs"
+            if not os.path.exists(path):
+                os.makedirs(path)
+            if show_result and save_photos and this_episode:
+                imageio.mimsave(path + '/episode_' + str(episode) + '.gif', 
+                                frames, 
+                                fps = 16, 
+                                )
+
             # Get action and gradient based on current weights, then step
             action, gradient = policy_gradient(state, weights)
             next_state, reward, done, _ = env.step(action)
