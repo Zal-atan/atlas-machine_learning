@@ -7,7 +7,7 @@ import tensorflow as tf
 def flip_image(image):
     """
     Flips an image horizontally
-    
+
     Input:
     image: 3D tf.Tensor containing the image to flip
 
@@ -15,4 +15,3 @@ def flip_image(image):
     the flipped image
     """
     return tf.image.flip_left_right(image)
-
