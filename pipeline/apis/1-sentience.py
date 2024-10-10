@@ -40,7 +40,9 @@ def sentientPlanets():
         response = get(BASE_API + "species/" + f"?page={page}")
         species_json = response.json()
         for species in species_json['results']:
-            if species['designation'] == 'sentient':
+            designation = species['designation'] == 'sentient'
+            classification = species['classification'] == 'sentient'
+            if designation or classification:
                 if species['homeworld'] == "None":
                     continue
                 try:
